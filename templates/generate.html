@@ -515,9 +515,26 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="your_role">Your Role</label>
-                    <input type="text" id="your_role" placeholder="Founder">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="your_role">Your Role</label>
+                        <input type="text" id="your_role" placeholder="Founder">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient_phone">Recipient Phone</label>
+                        <input type="tel" id="recipient_phone" placeholder="+1 234 567 8900">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipient_email">Recipient Email</label>
+                        <input type="email" id="recipient_email" placeholder="recipient@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin_url">LinkedIn URL</label>
+                        <input type="url" id="linkedin_url" placeholder="https://linkedin.com/in/username">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -645,6 +662,9 @@
                 company: document.getElementById('company').value,
                 your_name: document.getElementById('your_name').value,
                 your_role: document.getElementById('your_role').value,
+                recipient_phone: document.getElementById('recipient_phone').value,
+                recipient_email: document.getElementById('recipient_email').value,
+                linkedin_url: document.getElementById('linkedin_url').value,
                 context: document.getElementById('context').value
             };
 

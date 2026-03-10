@@ -49,28 +49,55 @@ def generate():
     company = data.get('company', '')
     your_name = data.get('your_name', '')
     your_role = data.get('your_role', '')
+    recipient_phone = data.get('recipient_phone', '')
+    recipient_email = data.get('recipient_email', '')
+    linkedin_url = data.get('linkedin_url', '')
     context = data.get('context', '')
 
-    prompt = f"""Write a cold email with the following details:
-- Recipient: {recipient_name} ({recipient_role} at {company})
-- Sender: {your_name} ({your_role})
+    contact_info = []
+    if recipient_phone:
+        contact_info.append(f"Phone: {recipient_phone}")
+    if recipient_email:
+        contact_info.append(f"Email: {recipient_email}")
+    if linkedin_url:
+        contact_info.append(f"LinkedIn: {linkedin_url}")
+    
+    contact_str = "\n".join(contact_info) if contact_info else "N/A"
+
+    prompt = f"""Generate a professional cold email with EXACTLY this structure:
+
+---
+SUBJECT: [Your catchy subject line - max 10 words]
+
+Hi {recipient_name if recipient_name else 'there'},
+
+[Opening hook - personalized connection to their role at {company or 'their company'}]
+
+[Brief introduction of yourself and why you're reaching out]
+
+[Value proposition or address their pain point based on: {context or 'general business inquiry'}]
+
+[One sentence about why you specifically] 
+
+Let's [specific call action] - would you be open to a quick [call/chat] this week?
+
+Best regards,
+{your_name if your_name else '[Your Name]'}
+{your_role if your_role else '[Your Role]'}
+---
+
+REQUIREMENTS:
 - Tone: {tone}
-- Additional Context: {context}
+- Length: 100-150 words
+- Make it conversational, not salesy
+- Use {recipient_name} name naturally in the opening
+- Never use placeholders like [Name] - use actual provided values
+- Contact info to reference: {contact_str}
+- The email should feel personalized, not generic
+- Focus on ONE specific value or idea
+- End with a clear, low-commitment call to action
 
-Write a compelling, personalized cold email that:
-1. Has a catchy subject line
-2. Opens with a personalized hook
-3. Briefly introduces the sender
-4. Provides value or addresses a pain point
-5. Ends with a clear call to action
-6. Stays concise (150-200 words max)
-
-Subject line format: "Subject: ..."
-
-Response format:
-Subject: [subject line]
-
-[Email body]"""
+Generate the email now:"""
 
     try:
         response = ollama.chat(
