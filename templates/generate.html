@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdMail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-dark: #0a0a0f;
+            --bg-card: #13131a;
+            --bg-card-hover: #1a1a24;
+            --bg-input: #0d0d12;
+            --border: rgba(99, 102, 241, 0.15);
+            --border-light: rgba(255,255,255,0.08);
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --gradient: linear-gradient(135deg, #0a0a0f 0%, #1e1b4b 50%, #0f172a 100%);
+            --card-gradient: linear-gradient(145deg, #13131a 0%, #1a1a24 100%);
+            --glow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --bg-input: #f1f5f9;
+            --border: rgba(99, 102, 241, 0.2);
+            --border-light: rgba(0,0,0,0.08);
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #f1f5f9 100%);
+            --card-gradient: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            --glow: 0 0 40px rgba(99, 102, 241, 0.1);
+        }
+
+        body {
+            background: var(--gradient);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 0;
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--glow);
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            padding: 0.5rem;
+            border-radius: 14px;
+            border: 1px solid var(--border-light);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .nav-tab.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .connection-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--warning);
+            text-align: center;
+        }
+
+        .connection-warning a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--glow);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+
+        select option {
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.loading {
+            color: transparent;
+            position: relative;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-secondary {
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            box-shadow: none;
+        }
+
+        .result {
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .result-header h3 {
+            font-size: 1.1rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text);
+            border-color: var(--primary);
+        }
+
+        .action-btn.success {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .email-output {
+            background: var(--bg-input);
+            border-radius: 12px;
+            padding: 1.5rem;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .error.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .success.show {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+
+            .nav-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">📧</div>
+                <span class="logo-text">ColdMail</span>
+            </div>
+            <p class="tagline">Generate and send personalized cold emails with AI</p>
+        </div>
+
+        <div class="nav-tabs">
+            <a href="/connect" class="nav-tab">🔗 Connect</a>
+            <a href="/" class="nav-tab active">✉️ Generate & Send</a>
+        </div>
+
+        <div id="warningContainer"></div>
+
+        <div class="card">
+            <h3 class="card-title">📝 Compose & Send Email</h3>
+            <form id="emailForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="model">AI Model</label>
+                        <select id="model" name="model">
+                            <option value="">Loading models...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tone">Tone</label>
+                        <select id="tone" name="tone">
+                            <option value="Professional">Professional</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Friendly">Friendly</option>
+                            <option value="Persuasive">Persuasive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipient_name">Recipient Name *</label>
+                        <input type="text" id="recipient_name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient_role">Recipient Role</label>
+                        <input type="text" id="recipient_role" placeholder="CEO">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company *</label>
+                        <input type="text" id="company" placeholder="TechCorp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="your_name">Your Name *</label>
+                        <input type="text" id="your_name" placeholder="Your Name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="your_role">Your Role</label>
+                    <input type="text" id="your_role" placeholder="Founder">
+                </div>
+
+                <div class="form-group">
+                    <label for="context">Additional Context</label>
+                    <textarea id="context" placeholder="Tell us about the recipient, your product, or any specific points..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="generateBtn">
+                    ✨ Generate Email
+                </button>
+            </form>
+            <div class="error" id="error"></div>
+        </div>
+
+        <div class="card result" id="result">
+            <div class="result-header">
+                <h3>✨ Generated Email</h3>
+                <div class="action-btns">
+                    <button class="action-btn" onclick="copyEmail()">📋 Copy</button>
+                </div>
+            </div>
+            <div class="email-output" id="emailOutput"></div>
+            
+            <div style="margin-top: 1.5rem;">
+                <h4 style="margin-bottom: 1rem; color: var(--text-secondary);">📤 Send this email</h4>
+                
+                <div class="form-group">
+                    <label for="fromEmail">From (Connected Account)</label>
+                    <select id="fromEmail" required>
+                        <option value="">Select email account</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="toEmail">To (Recipient Email) *</label>
+                    <input type="email" id="toEmail" placeholder="recipient@example.com" required>
+                </div>
+
+                <button class="btn" id="sendBtn" onclick="sendEmail()">
+                    ✈️ Send Email
+                </button>
+                <div class="success" id="successMsg"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by Ollama • <a href="#">Documentation</a></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('emailForm');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultDiv = document.getElementById('result');
+        const emailOutput = document.getElementById('emailOutput');
+        const errorDiv = document.getElementById('error');
+        const modelSelect = document.getElementById('model');
+        const fromSelect = document.getElementById('fromEmail');
+        const successMsg = document.getElementById('successMsg');
+
+        async function checkConnection() {
+            try {
+                const response = await fetch('/get-connected-accounts');
+                const data = await response.json();
+                
+                const connectTab = document.querySelector('a[href="/connect"]');
+                const warningContainer = document.getElementById('warningContainer');
+                
+                if (!data.success || data.accounts.length === 0) {
+                    connectTab.classList.remove('disabled');
+                    warningContainer.innerHTML = '<div class="connection-warning">⚠️ Please <a href="/connect">connect an email account</a> first to use this feature.</div>';
+                } else {
+                    fromSelect.innerHTML = '<option value="">Select email account</option>';
+                    data.accounts.forEach(acc => {
+                        const option = document.createElement('option');
+                        option.value = acc.email;
+                        option.textContent = acc.email;
+                        fromSelect.appendChild(option);
+                    });
+                }
+            } catch (err) {
+                console.error('Error checking connection:', err);
+            }
+        }
+
+        checkConnection();
+
+        async function loadModels() {
+            try {
+                const response = await fetch('/models');
+                const data = await response.json();
+                modelSelect.innerHTML = '';
+                
+                if (data.success && data.models.length > 0) {
+                    data.models.forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model;
+                        option.textContent = model;
+                        modelSelect.appendChild(option);
+                    });
+                } else {
+                    modelSelect.innerHTML = '<option value="">No models found</option>';
+                }
+            } catch (err) {
+                modelSelect.innerHTML = '<option value="">Error loading models</option>';
+            }
+        }
+
+        loadModels();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            generateBtn.classList.add('loading');
+            generateBtn.disabled = true;
+            resultDiv.classList.remove('show');
+            errorDiv.classList.remove('show');
+            successMsg.classList.remove('show');
+
+            const formData = {
+                model: document.getElementById('model').value,
+                tone: document.getElementById('tone').value,
+                recipient_name: document.getElementById('recipient_name').value,
+                recipient_role: document.getElementById('recipient_role').value,
+                company: document.getElementById('company').value,
+                your_name: document.getElementById('your_name').value,
+                your_role: document.getElementById('your_role').value,
+                context: document.getElementById('context').value
+            };
+
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    emailOutput.textContent = data.email;
+                    resultDiv.classList.add('show');
+                    localStorage.setItem('lastGeneratedEmail', data.email);
+                } else {
+                    errorDiv.textContent = '❌ ' + data.error;
+                    errorDiv.classList.add('show');
+                }
+            } catch (err) {
+                errorDiv.textContent = '❌ ' + err.message;
+                errorDiv.classList.add('show');
+            } finally {
+                generateBtn.classList.remove('loading');
+                generateBtn.disabled = false;
+            }
+        });
+
+        function copyEmail() {
+            navigator.clipboard.writeText(emailOutput.textContent).then(() => {
+                const btn = document.querySelector('.action-btn');
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = '📋 Copy', 2000);
+            });
+        }
+
+        async function sendEmail() {
+            const sendBtn = document.getElementById('sendBtn');
+            const toEmail = document.getElementById('toEmail').value;
+            const fromEmail = document.getElementById('fromEmail').value;
+            const emailContent = emailOutput.textContent;
+
+            if (!toEmail || !fromEmail) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const lines = emailContent.split('\n');
+            let subject = '';
+            let body = '';
+            
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].toLowerCase().startsWith('subject:')) {
+                    subject = lines[i].replace(/subject:/i, '').trim();
+                } else if (subject && !body) {
+                    body = lines.slice(i).join('\n').trim();
+                    break;
+                }
+            }
+
+            sendBtn.classList.add('loading');
+            sendBtn.disabled = true;
+            successMsg.classList.remove('show');
+
+            try {
+                const response = await fetch('/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from_email: fromEmail,
+                        to_email: toEmail,
+                        subject: subject,
+                        body: body || emailContent
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    successMsg.textContent = '✅ ' + data.message;
+                    successMsg.classList.add('show');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+            } finally {
+                sendBtn.classList.remove('loading');
+                sendBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

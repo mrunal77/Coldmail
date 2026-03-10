@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdMail - Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-dark: #0a0a0f;
+            --bg-card: #13131a;
+            --bg-card-hover: #1a1a24;
+            --bg-input: #0d0d12;
+            --border: rgba(99, 102, 241, 0.15);
+            --border-light: rgba(255,255,255,0.08);
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --gradient: linear-gradient(135deg, #0a0a0f 0%, #1e1b4b 50%, #0f172a 100%);
+            --card-gradient: linear-gradient(145deg, #13131a 0%, #1a1a24 100%);
+            --glow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --bg-input: #f1f5f9;
+            --border: rgba(99, 102, 241, 0.2);
+            --border-light: rgba(0,0,0,0.08);
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #f1f5f9 100%);
+            --card-gradient: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            --glow: 0 0 40px rgba(99, 102, 241, 0.1);
+        }
+
+        body {
+            background: var(--gradient);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 0;
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--glow);
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            padding: 0.5rem;
+            border-radius: 14px;
+            border: 1px solid var(--border-light);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .nav-tab.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--glow);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+        }
+
+        .provider-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .provider-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .provider-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .gmail-icon, .outlook-icon {
+            background: white;
+            padding: 8px;
+        }
+
+        .gmail-icon svg, .outlook-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .connected-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-input);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .account-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .account-email {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .disconnect-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: var(--error);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .disconnect-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .error.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .success.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--glow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .help-text a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .help-link {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .help-link a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.loading {
+            color: transparent;
+            position: relative;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+
+            .nav-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">📧</div>
+                <span class="logo-text">ColdMail</span>
+            </div>
+            <p class="tagline">Connect your email account</p>
+        </div>
+
+        <div class="nav-tabs">
+            <a href="/connect" class="nav-tab active">🔗 Connect</a>
+            <a href="/generate" class="nav-tab" id="generateTab">✉️ Generate & Send</a>
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">🔌 Email Providers</h3>
+            <button class="provider-btn" onclick="openModal('gmail')">
+                <div class="provider-icon gmail-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                </div>
+                <span>Connect Gmail</span>
+            </button>
+            <p class="help-link">Don't know how? <a href="https://support.google.com/accounts/answer/185833?hl=en" target="_blank">Get Gmail App Password</a></p>
+            
+            <button class="provider-btn" onclick="openModal('outlook')">
+                <div class="provider-icon outlook-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5.5C1 3.57 2.57 2 4.5 2h15C21.43 2 23 3.57 23 5.5v13c0 1.93-1.57 3.5-3.5 3.5h-15A3.5 3.5 0 0 1 1 18.5v-13Z" fill="#0078D4"/>
+                        <path d="M11.5 14.5c.38 0 .75-.12 1.05-.35l2.45 2.45c-.65.35-1.41.4-2.1.1-.7-.3-1.23-.88-1.4-1.6V14.5Z" fill="#0078D4"/>
+                        <path d="M22.17 8.42c.1-.15.16-.33.16-.52V5.5c0-.55-.45-1-1-1h-15c-.12 0-.23.02-.34.05l7.84 6.05v2.42c0 .72.26 1.4.71 1.96l2.1-2.1c.3-.23.67-.35 1.05-.35.38 0 .75.12 1.05.35l2.53 2.53c.54-.69.87-1.53.87-2.45V8.42Z" fill="white"/>
+                    </svg>
+                </div>
+                <span>Connect Outlook</span>
+            </button>
+            <p class="help-link">Don't know how? <a href="https://account.microsoft.com/security" target="_blank">Get Outlook App Password</a></p>
+
+            <div class="connected-title">Connected Accounts</div>
+            <div id="connectedAccounts"></div>
+        </div>
+
+        <div class="error" id="error"></div>
+        <div class="success" id="successMsg"></div>
+
+        <div class="footer">
+            <p>Secure OAuth connection • <a href="#">Learn more</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="emailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Connect Email</h3>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <form id="connectForm">
+                <input type="hidden" id="emailProvider" value="">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">App Password</label>
+                    <input type="password" id="password" placeholder="Enter app password" required>
+                    <p class="help-text">
+                        <a href="https://myaccount.google.com/apppasswords" target="_blank">Get Gmail App Password</a> • 
+                        <a href="https://account.microsoft.com/security" target="_blank">Get Outlook App Password</a>
+                    </p>
+                </div>
+                <button type="submit" class="btn" id="connectBtn">Connect Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const generateTab = document.getElementById('generateTab');
+        generateTab.classList.add('disabled');
+        
+        generateTab.addEventListener('click', function(e) {
+            if (this.classList.contains('disabled')) {
+                e.preventDefault();
+            }
+        });
+
+        loadConnectedAccounts();
+
+        function openModal(provider) {
+            document.getElementById('emailProvider').value = provider;
+            document.getElementById('modalTitle').textContent = provider === 'gmail' ? 'Connect Gmail' : 'Connect Outlook';
+            document.getElementById('emailModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('emailModal').classList.remove('show');
+            document.getElementById('connectForm').reset();
+        }
+
+        document.getElementById('connectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const connectBtn = document.getElementById('connectBtn');
+            const errorDiv = document.getElementById('error');
+            const successMsg = document.getElementById('successMsg');
+            
+            errorDiv.classList.remove('show');
+            successMsg.classList.remove('show');
+            connectBtn.classList.add('loading');
+            connectBtn.disabled = true;
+
+            try {
+                const response = await fetch('/connect-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        provider: document.getElementById('emailProvider').value
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    closeModal();
+                    window.location.href = '/generate';
+                } else {
+                    errorDiv.textContent = '❌ ' + data.error;
+                    errorDiv.classList.add('show');
+                }
+            } catch (err) {
+                errorDiv.textContent = '❌ ' + err.message;
+                errorDiv.classList.add('show');
+            } finally {
+                connectBtn.classList.remove('loading');
+                connectBtn.disabled = false;
+            }
+        });
+
+        async function loadConnectedAccounts() {
+            try {
+                const response = await fetch('/get-connected-accounts');
+                const data = await response.json();
+                const container = document.getElementById('connectedAccounts');
+                const generateTab = document.getElementById('generateTab');
+                
+                if (data.success && data.accounts && data.accounts.length > 0) {
+                    container.innerHTML = data.accounts.map(acc => `
+                        <div class="account-item">
+                            <div class="account-info">
+                                <div class="provider-icon ${acc.provider}-icon">
+                                    ${acc.provider === 'gmail' ? 
+                                        `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>` :
+                                        `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5.5C1 3.57 2.57 2 4.5 2h15C21.43 2 23 3.57 23 5.5v13c0 1.93-1.57 3.5-3.5 3.5h-15A3.5 3.5 0 0 1 1 18.5v-13Z" fill="#0078D4"/><path d="M11.5 14.5c.38 0 .75-.12 1.05-.35l2.45 2.45c-.65.35-1.41.4-2.1.1-.7-.3-1.23-.88-1.4-1.6V14.5Z" fill="#0078D4"/><path d="M22.17 8.42c.1-.15.16-.33.16-.52V5.5c0-.55-.45-1-1-1h-15c-.12 0-.23.02-.34.05l7.84 6.05v2.42c0 .72.26 1.4.71 1.96l2.1-2.1c.3-.23.67-.35 1.05-.35.38 0 .75.12 1.05.35l2.53 2.53c.54-.69.87-1.53.87-2.45V8.42Z" fill="white"/></svg>`
+                                    }
+                                </div>
+                                <span class="account-email">${acc.email}</span>
+                            </div>
+                            <button class="disconnect-btn" onclick="disconnectEmail('${acc.email}')" title="Disconnect">
+                                🚫
+                            </button>
+                        </div>
+                    `).join('');
+                    generateTab.classList.remove('disabled');
+                } else {
+                    container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No accounts connected yet</p>';
+                    generateTab.classList.add('disabled');
+                }
+            } catch (err) {
+                console.error('Error loading accounts:', err);
+                document.getElementById('connectedAccounts').innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">Error loading accounts</p>';
+                document.getElementById('generateTab').classList.add('disabled');
+            }
+        }
+
+        async function disconnectEmail(email) {
+            try {
+                const response = await fetch('/disconnect-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    loadConnectedAccounts();
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+    </script>
+</body>
+</html>
