@@ -50,6 +50,24 @@
             --glow: 0 0 40px rgba(99, 102, 241, 0.1);
         }
 
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
         body {
             background: var(--gradient);
             min-height: 100vh;

@@ -1,6 +1,47 @@
 # ColdMail Generator
 
-A web application for generating personalized cold emails using local Ollama LLM.
+A desktop application for generating personalized cold emails using local Ollama LLM.
+
+## Running as Desktop App (Electron)
+
+### Prerequisites
+
+1. **Python 3.8+** - Download from https://www.python.org/
+2. **Node.js** - Download from https://nodejs.org/
+3. **Ollama** - Download from https://ollama.ai/ and install a model (e.g., `ollama pull llama2`)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Run the App
+
+```bash
+npm start
+```
+
+This will:
+1. Start the Flask backend automatically
+2. Launch the ColdMail desktop app
+
+### Build Executable
+
+```bash
+npm run build
+```
+
+This will create an executable in the `dist` folder.
+
+## Running as Web App (Flask only)
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Then open http://localhost:5000 in your browser.
 
 ## Features
 
@@ -9,25 +50,6 @@ A web application for generating personalized cold emails using local Ollama LLM
 - Send emails directly from the app
 - Modern dark/light themed UI with glow effects
 - Select from multiple Ollama models
-
-## Prerequisites
-
-1. **Python 3.8+** - Download from https://www.python.org/
-2. **Ollama** - Download from https://ollama.ai/ and install a model (e.g., `ollama pull llama2`)
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-## Running the App
-
-```bash
-python app.py
-```
-
-Then open http://localhost:5000 in your browser.
 
 ## Email Setup
 
@@ -41,9 +63,10 @@ Then open http://localhost:5000 in your browser.
 
 ## Tech Stack
 
+- **Frontend**: Electron
 - **Backend**: Flask (Python)
 - **AI**: Ollama (local LLM)
-- **Frontend**: HTML/CSS/JavaScript
+- **UI**: HTML/CSS/JavaScript
 
 ## License
 

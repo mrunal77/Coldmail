@@ -1,0 +1,51 @@
+{
+  "name": "coldmail",
+  "version": "1.0.0",
+  "description": "ColdMail Generator - AI-powered cold email sender",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "python app.py & sleep 3 && electron .",
+    "build": "electron-builder --win",
+    "pack": "electron-builder --dir"
+  },
+  "author": "ColdMail",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.coldmail.app",
+    "productName": "ColdMail",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "templates/**/*",
+      "email_accounts.json"
+    ],
+    "extraResources": [
+      {
+        "from": "app.py",
+        "to": "app.py"
+      }
+    ]
+  }
+}
